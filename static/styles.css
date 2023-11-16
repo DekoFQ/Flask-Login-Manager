@@ -1,0 +1,14 @@
+.avatar:hover{
+    cursor: pointer;
+    
+}
+
+.avatar:active{
+    filter: brightness(95%)
+}
+
+.avatar{
+    border-radius: 100%; 
+    border: solid; 
+    height: 70px;
+}

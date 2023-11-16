@@ -1,0 +1,31 @@
+.select-list:hover {
+    background: rgb(69, 111, 234);
+    color: #fff;
+    border: 1px solid rgb(0, 0, 0);
+    padding: 0px;
+    cursor: pointer;
+}
+
+.select-list {
+    padding: 1px;
+}
+.no-show {
+    display: none !important;
+}
+
+
+.marca-select{
+    border: 1px solid rgb(97, 93, 93);
+    display: grid;
+    justify-content: center;
+    height: 21px;
+    cursor: pointer;
+    align-content: center;
+}
+
+.div-select{
+    justify-self: center;
+    display: grid;
+    row-gap: 10px;
+    margin-top: 4px;
+}

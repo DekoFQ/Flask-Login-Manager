@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/select.css">
+    <script src="../static/component/select.js"></script>
+    <title>CREAR VEHICULO</title>
+</head>
+
+<body>
+    <h1>CREAR VEHICULO</h1>
+
+    <form action="{{url_for('appVehiculo.crear_vehiculo')}}" method="post">
+        
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 800px; row-gap: 8px;">
+        {{form.hidden_tag()}}
+
+        {{form.tipo_vehiculo}}
+
+        <select-personalizado data-array='{{nombre_vehiculo | tojson | safe}}' hidden-input-name="tipo_vehiculo" placeholder="Seleccionar Tipo de Vehiculo" >
+
+        </select-personalizado>
+
+        <select-personalizado data-array='{{nombre_marca | tojson | safe}}' hidden-input-name="marca" placeholder="Seleccionar Marca" >
+
+        </select-personalizado>
+
+        <select-personalizado data-array='{{nombre_modelo | tojson | safe}}' hidden-input-name="modelo" placeholder="Seleccionar Modelo" >
+
+        </select-personalizado>
+
+        {{form.marca(value="Honda")}}
+
+        {{form.modelo}}
+
+        {{form.precio}}
+
+        {{form.submit}}
+
+
+
+    </div>    
+</form>
+
+    <a href="{{url_for('appDash.dashboard')}}">Ir a dashboard</a>
+
+
+<!-- SCRIPT PARA SELECT -->
+
+
+
+<!-- SCRIPT PARA SELECT -->
+
+
+
+</body>
+</html>

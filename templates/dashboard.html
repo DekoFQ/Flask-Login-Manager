@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/styles.css">
+
+    <title>DASHBOARD</title>
+</head>
+<body class="bg-light">
+
+    <div style="display: flex; justify-content: space-around; align-items: center;">
+        <h1>Hi {{name}}, you are logged 😱🥳</h1>
+
+        <div class="dropdown">
+            <img 
+            src="https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
+            alt="Aang" 
+            class="dropdown-toggle avatar"  
+            data-bs-toggle="dropdown"
+            >
+            
+          
+            <ul class="dropdown-menu" style="">
+              <li><a class="dropdown-item" href="/perfil">Ir a Perfil</a></li>
+              <li><a class="dropdown-item" href="/logout">Press here to logout</a> </li>
+            </ul>
+          </div>
+
+        
+
+         
+         
+
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div class="card shadow">
+            <h1 class="text-center">CLIENTES</h1>
+            <form action="{{url_for('appDash.addClient')}}" method="post">
+                {{form.hidden_tag()}}
+                <div style="display: flex; justify-content: space-between; padding-left: 10px; padding-right: 10px; margin: 5px;">
+                   <div class="form-inputs" style="justify-content: flex-start; display: flex; column-gap: 10px;">
+                    
+                    <div class="col">
+                        {{form.nameCompany(class="form-control")}}
+                    </div>
+                    <div class="col">
+                        {{form.nit(placeholder='NIT', class="form-control")}}
+                    </div>
+                    <div class="col">
+                        {{form.city(class="form-control")}}
+                    </div>
+                     <div class="col">
+                        {{form.quantity(placeholder='Cantidad productos', class="form-control")}}
+                        </div>
+                   </div>
+                    <div style="display: flex; column-gap: 10px;">
+                        <div class="col">
+                            <button class="btn btn-secondary btn-sm" type="reset">Reset</button>
+                            {{form.submit(class="btn btn-success btn-sm")}}
+
+                        </div>
+
+                    </div>  
+                </div>
+            </form>
+
+            <!-- TABLA -->
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Estado: Disponible</th>
+                        <th scope="col">Nombre compañía</th>
+                        <th scope="col">NIT</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr class="text-center">
+                        <td>{% if not cliente.usuario_id %}
+                            Disponible
+                        {% else %}
+                            No Disponible
+                        {% endif %}</td>
+                        <td>{{cliente.nameCompany}}</td>
+                        <td>{{cliente.nit}}</td>
+                        <td>{{cliente.city}}</td>
+                        <td>{{cliente.quantity}}</td>
+                        <td>
+                            {% if not cliente.usuario_id %}
+                            <a href="{{ url_for('appDash.asignar_cliente', cliente_id=cliente._id) }}" class="btn btn-primary btn-sm">Tomar</a>
+                            {% endif %}
+                            <!-- {% if cliente.usuario_id %}
+                                    <a href="{{ url_for('appDash.soltar_cliente', cliente_id=cliente._id, origin='dashboard') }}" class="btn btn-danger btn-sm">X</a>
+                            {% endif %} -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                <a href="{{ url_for('appVehiculo.crear_vehiculo') }}">Ir a crear</a>
+
+            </table>
+
+            
+
+
+
+        </div>
+    </div>
+        
+
+  
+        
+
+        
+
+        
+
+        
+
+    
+</body>
+</html>

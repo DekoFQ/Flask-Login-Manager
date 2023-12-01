@@ -6,6 +6,7 @@ from routes.login import blpl
 from routes.dashboard import blpd
 from routes.logout import blpo
 from routes.prueba import blpp
+from routes.prueba_vehiculo import blppv
 from routes.vehiculos import blpv
 from bson import ObjectId
 from models import User
@@ -45,6 +46,7 @@ app.register_blueprint(blpd)
 app.register_blueprint(blpo)
 app.register_blueprint(blpp)
 app.register_blueprint(blpv)
+app.register_blueprint(blppv)
 
 
 if __name__ == "__main__":

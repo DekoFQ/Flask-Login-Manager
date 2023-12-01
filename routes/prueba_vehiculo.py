@@ -1,26 +1,31 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from forms import VehiculoForm
 from flask_login import login_required
 from extentions import db
-from models import  tVehiculo, mVehiculo
+from models import  tVehiculo, mVehiculo, nModelo
 import uuid
 
-blpv = Blueprint('appVehiculo', __name__, template_folder="./templates", static_folder="./static")
+blppv = Blueprint('pruebaVehiculo', __name__, template_folder="./templates", static_folder="./static")
 
 
-@blpv.route('/crear_vehiculo', methods=['GET', 'POST'])
+@blppv.route('/crear_vehiculo1', methods=['GET', 'POST'])
 @login_required
-def crear_vehiculo():
+def crear_vehiculo1():
     form = VehiculoForm()
+
+
+   
 
     opciones = db.vehiculos.find()
     lista_marcas = db.marca.find()
     lista_referencia = db.modelo.find()
 
 
+
+
     form.tipo_vehiculo.choices = [str(vehiculo['tipo']) for vehiculo in opciones]
     form.marca.choices = [str(marca['nombre']) for marca in lista_marcas]
-    form.modelo.choices =[str(modelo['nombre']) for modelo in lista_referencia]
+    form.modelo.choices =[(str(modelo['nombre']), str(modelo['nombre'])) for modelo in lista_referencia if 'nombre' in modelo and modelo['nombre'] is not None]
 
 
 
@@ -63,11 +68,16 @@ def crear_vehiculo():
         # nombre_xd = marca_doc['nombre']
         # print(nombre_xd)
         modelo_doc = db.modelo.find_one({'nombre': modelo_nombre})
+        modelo_mar = db.modelo.find_one({'nombre_marca':marca_doc})
         if modelo_doc is None:
             _id =str(uuid.uuid4())
             modelo_doc = {'nombre': modelo_nombre, '_id': _id, 'nombre_marca': marca_doc['nombre'],'marca_id': marca_doc['_id']}
             db.modelo.insert_one(modelo_doc)
 
+        else:
+            update_data= {'nombre_marca':marca_doc['nombre'],'marca_id':marca_doc['_id']}
+            db.modelo.update_one({'nombre':modelo_nombre},{'$set':update_data})
+        
 
         xd = modelo_doc['nombre']
         precio_doc = db.precioUn.find_one({'nombre_modelo': xd})
@@ -78,13 +88,35 @@ def crear_vehiculo():
 
         
 
-    
-
-
-        return redirect('/crear_vehiculo')
+        return redirect('/crear_vehiculo1')
     
     
 
+    return render_template('prueba_vehiculo.html', form=form)
 
+
+@blppv.route('/crear_nuevo_elemento', methods=['POST'])
+def crear_nuevo_elemento():
+    form = VehiculoForm()
+
+
+    tipos_vehiculos = [tipo['tipo'] for tipo in db.vehiculos.find()]
+    print(tipos_vehiculos)
     
-    return render_template('crear.html', form=form)
+    
+
+    if request.method == 'POST':
+
+        tipos_select = [tipo for tipo, field in zip(tipos_vehiculos, form.check) if field.data]
+
+        _id = str(uuid.uuid4())
+        nombre = request.form['nuevo_modelo']
+
+        nuevo_elemento = {'nombre':nombre, '_id':_id}
+        db.modelo.insert_one(nuevo_elemento) 
+
+
+
+        return redirect('/crear_vehiculo1')
+    
+    return render_template('prueba_vehiculo.html', forms=form)

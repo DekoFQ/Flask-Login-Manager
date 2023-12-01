@@ -62,3 +62,10 @@ class mVehiculo:
         self._id = _id
         self.nombre = nombre
         self.vehiculo_id = vehiculo_id
+
+
+class nModelo:
+    def __init__(self, _id, nombre):
+
+        self._id = _id 
+        self.nombre = nombre

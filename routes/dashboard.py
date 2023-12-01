@@ -79,6 +79,7 @@ def asignar_cliente(cliente_id):
 # VISTA PERFIL
 
 @blpd.route('/perfil', methods=['GET', 'POST'])
+@login_required
 def perfil():
 
     
@@ -128,6 +129,7 @@ def soltar_cliente(cliente_id):
 # CREANDO FUNCION PARA COTIZAR
 
 @blpd.route('/cotizar/<cliente_id>', methods = ['GET', 'POST'])
+@login_required
 def cotizar(cliente_id):
     form = Productos()
     

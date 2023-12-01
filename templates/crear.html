@@ -52,18 +52,18 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">Tipo de Vehiculo</th>
-                                <th scope="col">Marca del Vehiculo</th>
-                                <th scope="col">Referencia del Vehiculo</th>
+                                <th scope="col">Tipo de Vehiculo {{form.submitn(class="btn btn-primary")}}</th>
+                                <th scope="col">Marca del Vehiculo {{form.submitn(class="btn btn-primary")}}</th>
+                                <th scope="col">Referencia del Vehiculo {{form.submitn(class="btn btn-primary")}}</th>
                                 <th scope="col">Precio:</th>
                             </tr>
                         </thead>
     
                         <tbody>
                             <tr>
-                                <td><div style="display: grid; align-content: center;  height: 40px; width: 90px;">{{form.tipo_vehiculo}}</div></td>
-                                <td>{{form.marca(class="form-control")}}</td>
-                                <td>{{form.modelo(class="form-control")}}</td>
+                                <td><div style="display: grid; align-content: center;  height: 40px; width: 90px;">{{form.tipo_vehiculo(class="form-select")}}</div></td>
+                                <td>{{form.marca(class="form-select")}}</td>
+                                <td>{{form.modelo(class="form-select")}}</td>
                                 <td>{{form.precio(class="form-control")}}<div>
                                 </div></td>
                             </tr>

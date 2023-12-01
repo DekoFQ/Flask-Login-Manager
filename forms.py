@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, SubmitField, IntegerField, SelectField, FloatField, DecimalField 
+from wtforms import StringField, EmailField, PasswordField, SubmitField, IntegerField, SelectField, FloatField, DecimalField, BooleanField 
 from wtforms.validators import DataRequired, Length, ValidationError, InputRequired
 from extentions import db
 
@@ -49,11 +49,17 @@ class Productos(FlaskForm):
     submit = SubmitField('Enviar') 
 
 
-# -----------------------> VEHICULOS <-----------------------------
+# -----------------------> CREAR VEHICULOS <-----------------------------
 
 class VehiculoForm(FlaskForm):
     tipo_vehiculo = SelectField('Tipo de Vehiculo')
-    marca = StringField('Marca', validators=[DataRequired()], render_kw={'placeholder': 'Marca'})
-    modelo = StringField('Modelo', validators=[DataRequired()], render_kw={'placeholder':'Modelo'})
+    marca = SelectField('Marca')
+    modelo = SelectField('Modelo')#, validators=[DataRequired()], render_kw={'placeholder':'Modelo'})
     precio = IntegerField('Precio', validators=[DataRequired()], render_kw={'placeholder':'Precio'})
+    submitn = SubmitField('Nuevo')
     submit = SubmitField('Crear')
+    nuevo_modelo = StringField('Nuevo')
+    check = BooleanField('Prueba', default=False)
+
+
+
